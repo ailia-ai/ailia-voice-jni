@@ -36,7 +36,6 @@ class AiliaVoice(
         }
     }
 
-    private val tag = AiliaVoice::class.simpleName
     private var voice: Long = 0
 
     init {
@@ -44,7 +43,7 @@ class AiliaVoice(
     }
 
     fun setUserDictionaryFile(path: String, dictionaryType: Int = AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK) {
-        check(setUserDictionaryFileA(voice, path, dictionaryType))
+        check(setUserDictionaryFile(voice, path, dictionaryType))
     }
 
     class AiliaVoiceException(message: String) : Exception(message)
@@ -56,13 +55,13 @@ class AiliaVoice(
     }
 
     fun openDictionaryFile(path: String, dictionaryType: Int = AILIA_VOICE_DICTIONARY_TYPE_OPEN_JTALK) {
-        check(openDictionaryFileA(voice, path, dictionaryType))
+        check(openDictionaryFile(voice, path, dictionaryType))
     }
 
     fun openModelFile(encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String, 
                      modelType: Int = AILIA_VOICE_MODEL_TYPE_TACOTRON2, 
                      cleanerType: Int = AILIA_VOICE_CLEANER_TYPE_BASIC) {
-        check(openModelFileA(voice, encoder, decoder1, decoder2, wave, ssl, modelType, cleanerType))
+        check(openModelFile(voice, encoder, decoder1, decoder2, wave, ssl, modelType, cleanerType))
     }
 
     private fun extractFullContext(text: String) {
@@ -84,7 +83,7 @@ class AiliaVoice(
         return ""
     }
 
-    fun inference(text: String): AudioData {
+    fun synthesizeVoice(text: String): AudioData {
         check(inference(voice, text))
         val waveInfo = getWaveInfo(voice)!!
         val samples = waveInfo[0]
@@ -110,12 +109,9 @@ class AiliaVoice(
 
     private external fun create(envId: Int, numThread: Int, memoryMode: Int, flags: Int): Long
     private external fun destroy(voice: Long)
-    private external fun setUserDictionaryFileA(voice: Long, path: String, dictionaryType: Int): Int
-    private external fun setUserDictionaryFileW(voice: Long, path: String, dictionaryType: Int): Int
-    private external fun openDictionaryFileA(voice: Long, path: String, dictionaryType: Int): Int
-    private external fun openDictionaryFileW(voice: Long, path: String, dictionaryType: Int): Int
-    private external fun openModelFileA(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String, modelType: Int, cleanerType: Int): Int
-    private external fun openModelFileW(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String, modelType: Int, cleanerType: Int): Int
+    private external fun setUserDictionaryFile(voice: Long, path: String, dictionaryType: Int): Int
+    private external fun openDictionaryFile(voice: Long, path: String, dictionaryType: Int): Int
+    private external fun openModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String, modelType: Int, cleanerType: Int): Int
     private external fun graphemeToPhoneme(voice: Long, text: String, g2pType: Int): Int
     private external fun extractFullContext(voice: Long, text: String): Int
     private external fun getFeatureLength(voice: Long): Int
