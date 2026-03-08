@@ -69,12 +69,28 @@ class AiliaVoice(
         check(openModelFile(voice, encoder, decoder1, decoder2, wave, ssl, modelType, cleanerType))
     }
 
-    fun openModelFileGPTSoVITSV3(encoder: String, decoder1: String, decoder2: String, ssl: String, vq: String, cfm: String, bigvgan: String) {
-        check(openModelFileGPTSoVITSV3(voice, encoder, decoder1, decoder2, ssl, vq, cfm, bigvgan))
+    fun openTacotron2ModelFile(encoder: String, decoder1: String, decoder2: String, wave: String,
+                              cleanerType: Int) {
+        check(openTacotron2ModelFile(voice, encoder, decoder1, decoder2, wave, cleanerType))
     }
 
-    fun openModelFileGPTSoVITSV2Pro(encoder: String, decoder1: String, decoder2: String, ssl: String, vits: String, sv: String) {
-        check(openModelFileGPTSoVITSV2Pro(voice, encoder, decoder1, decoder2, ssl, vits, sv))
+    fun openGPTSoVITSV1ModelFile(encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String) {
+        check(openGPTSoVITSV1ModelFile(voice, encoder, decoder1, decoder2, wave, ssl))
+    }
+
+    fun openGPTSoVITSV2ModelFile(encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String,
+                                  chineseBert: String? = null, vocab: String? = null) {
+        check(openGPTSoVITSV2ModelFile(voice, encoder, decoder1, decoder2, wave, ssl, chineseBert, vocab))
+    }
+
+    fun openGPTSoVITSV3ModelFile(encoder: String, decoder1: String, decoder2: String, ssl: String, vq: String, cfm: String, bigvgan: String,
+                                  chineseBert: String? = null, vocab: String? = null) {
+        check(openGPTSoVITSV3ModelFile(voice, encoder, decoder1, decoder2, ssl, vq, cfm, bigvgan, chineseBert, vocab))
+    }
+
+    fun openGPTSoVITSV2ProModelFile(encoder: String, decoder1: String, decoder2: String, ssl: String, vits: String, sv: String,
+                                     chineseBert: String? = null, vocab: String? = null) {
+        check(openGPTSoVITSV2ProModelFile(voice, encoder, decoder1, decoder2, ssl, vits, sv, chineseBert, vocab))
     }
 
     fun setSampleSteps(steps: Int) {
@@ -93,7 +109,7 @@ class AiliaVoice(
     /**
      * Set the model type for G2P processing.
      * Sets the model type when using G2P standalone without loading model files.
-     * Automatically set when openModelFile or openModelFileGPTSoVITSV3 is called.
+     * Automatically set when openModelFile or openGPTSoVITSV3ModelFile is called.
      * @param modelType AILIA_VOICE_MODEL_TYPE_*
      */
     fun setModelType(modelType: Int) {
@@ -148,8 +164,11 @@ class AiliaVoice(
     private external fun setUserDictionaryFile(voice: Long, path: String, dictionaryType: Int): Int
     private external fun openDictionaryFile(voice: Long, path: String, dictionaryType: Int): Int
     private external fun openModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String, modelType: Int, cleanerType: Int): Int
-    private external fun openModelFileGPTSoVITSV3(voice: Long, encoder: String, decoder1: String, decoder2: String, ssl: String, vq: String, cfm: String, bigvgan: String): Int
-    private external fun openModelFileGPTSoVITSV2Pro(voice: Long, encoder: String, decoder1: String, decoder2: String, ssl: String, vits: String, sv: String): Int
+    private external fun openTacotron2ModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, cleanerType: Int): Int
+    private external fun openGPTSoVITSV1ModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String): Int
+    private external fun openGPTSoVITSV2ModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, wave: String, ssl: String, chineseBert: String?, vocab: String?): Int
+    private external fun openGPTSoVITSV3ModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, ssl: String, vq: String, cfm: String, bigvgan: String, chineseBert: String?, vocab: String?): Int
+    private external fun openGPTSoVITSV2ProModelFile(voice: Long, encoder: String, decoder1: String, decoder2: String, ssl: String, vits: String, sv: String, chineseBert: String?, vocab: String?): Int
     private external fun setSampleSteps(voice: Long, steps: Int): Int
     private external fun setSpeed(voice: Long, speed: Float): Int
     private external fun setModelType(voice: Long, modelType: Int): Int
